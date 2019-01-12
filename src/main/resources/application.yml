@@ -1,0 +1,6 @@
+pizza:
+  welcome_message: "Welcome to Delivery Pizza APP"
+
+spring:
+  profiles:
+    active: dev
