@@ -10,7 +10,7 @@ public class MakeSabor {
     public static SaborOutVM toSaborVM(Sabor sabor) {
         SaborOutVM saborOutVM = new SaborOutVM();
         saborOutVM.setSabor(sabor.getDescricao());
-        saborOutVM.setValorAdicional(sabor.getValorAdicional());
+        saborOutVM.setTempoAdicional(sabor.getTempoAdicional());
         return saborOutVM;
     }
 

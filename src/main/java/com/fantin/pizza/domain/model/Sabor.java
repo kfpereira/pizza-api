@@ -3,7 +3,6 @@ package com.fantin.pizza.domain.model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 @Table
@@ -26,6 +25,6 @@ public class Sabor {
     @Column(name = "DESCRICAO", length = 50)
     private String descricao;
 
-    @Column(name = "VALOR_ADICIONAL")
-    private BigDecimal valorAdicional;
+    @Column(name = "TEMPO_ADICIONAL")
+    private Integer tempoAdicional;
 }

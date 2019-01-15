@@ -1,6 +1,7 @@
 package com.fantin.pizza.controller;
 
 import com.fantin.pizza.config.exceptions.DataRequiredException;
+import com.fantin.pizza.config.exceptions.InvalidateDataException;
 import com.fantin.pizza.config.exceptions.RecordNotFoundException;
 import com.fantin.pizza.domain.model.Adicional;
 import com.fantin.pizza.domain.model.Pedido;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
 
 import static com.fantin.pizza.config.errors.ErrorMessages.REQUIRED_SABOR;
 import static com.fantin.pizza.viewer.makers.MakePedido.toPedidoOutVM;
-import static com.fantin.pizza.viewer.makers.MakePedido.toPedidoOutVMFirstStep;
+import static com.fantin.pizza.viewer.makers.MakePedidoFirstStep.toPedidoOutVMFirstStep;
 
 @Api(tags = { "ordersController" })
 @RestController
@@ -67,11 +68,8 @@ public class OrdersController {
     }
 
     @PostMapping(value = "/adicionais")
-    public PedidoOutVM postOrderAdicionais(HttpServletRequest request, SecondStepVM secondStepVM) throws RecordNotFoundException {
+    public PedidoOutVM postOrderAdicionais(HttpServletRequest request, SecondStepVM secondStepVM) throws RecordNotFoundException, InvalidateDataException {
         Pedido pedido = pedidoService.find(secondStepVM.getIdPedido());
-
-        if (secondStepVM.getAdicionais() == null || secondStepVM.getAdicionais().isEmpty())
-            return toPedidoOutVM(pedido, null);
 
         List<Adicional> adicionalList = adicionalService.find(secondStepVM.getAdicionais());
         pedidoService.save(pedido, adicionalList);

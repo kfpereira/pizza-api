@@ -3,6 +3,7 @@ package com.fantin.pizza;
 import com.fantin.pizza.config.core.FunctionalTest;
 import com.fantin.pizza.config.errors.ErrorMessages;
 import com.fantin.pizza.config.exceptions.DataRequiredException;
+import com.fantin.pizza.config.exceptions.InvalidateDataException;
 import com.fantin.pizza.config.exceptions.RecordNotFoundException;
 import com.fantin.pizza.controller.OrdersController;
 import com.fantin.pizza.domain.type.TypePersonalizacao;
@@ -77,7 +78,7 @@ class OrdersControllerTest {
         assertNotNull(outVM.getIdPedido());
         assertEquals(TypeTamanho.GRANDE, outVM.getTamanho());
         assertEquals("PORTUGUESA", outVM.getSabor());
-        assertEquals(BigDecimal.valueOf(45), outVM.getValorTotal());
+        assertEquals(BigDecimal.valueOf(40), outVM.getValorTotal());
     }
 
     @Test
@@ -103,7 +104,7 @@ class OrdersControllerTest {
         assertNotNull(outVM.getIdPedido());
         assertEquals(TypeTamanho.MEDIA, outVM.getTamanho());
         assertEquals("PORTUGUESA", outVM.getSabor());
-        assertEquals(BigDecimal.valueOf(35), outVM.getValorTotal());
+        assertEquals(BigDecimal.valueOf(30), outVM.getValorTotal());
     }
 
     @Test
@@ -129,7 +130,7 @@ class OrdersControllerTest {
         assertNotNull(outVM.getIdPedido());
         assertEquals(TypeTamanho.PEQUENA, outVM.getTamanho());
         assertEquals("PORTUGUESA", outVM.getSabor());
-        assertEquals(BigDecimal.valueOf(25), outVM.getValorTotal());
+        assertEquals(BigDecimal.valueOf(20), outVM.getValorTotal());
     }
 
     @Test
@@ -150,7 +151,7 @@ class OrdersControllerTest {
     }
 
     @Test
-    void shouldFinalizeStep2WithAdicionaisEmpty() throws RecordNotFoundException, DataRequiredException {
+    void shouldFinalizeStep2WithAdicionaisEmpty() throws RecordNotFoundException, DataRequiredException, InvalidateDataException {
         SaborInVM saborVM = getSaborVM("PORTUGUESA");
         FirstStepVM firstStep = getFirstStepVM(saborVM, TypeTamanho.PEQUENA);
 
@@ -167,11 +168,15 @@ class OrdersControllerTest {
         PedidoOutVM vm = controller.postOrderAdicionais(null, secondStepVM);
 
         assertNotNull(vm);
-        assertEquals(outVM.getValorTotal(), vm.getValorTotal());
+        assertEquals(BigDecimal.valueOf(20), vm.getValorTotal());
+        assertEquals(Integer.valueOf(20), vm.getTempoPreparo());
+        assertEquals("PORTUGUESA", vm.getResumo().getSabor());
+        assertEquals(TypeTamanho.PEQUENA, vm.getResumo().getTamanho());
+        assertEquals(BigDecimal.valueOf(20), vm.getResumo().getPreco());
     }
 
     @Test
-    void shouldFinalizeStep2WithAdicionaisNull() throws RecordNotFoundException, DataRequiredException {
+    void shouldFinalizeStep2WithAdicionaisNull() throws RecordNotFoundException, DataRequiredException, InvalidateDataException {
         SaborInVM saborVM = getSaborVM("PORTUGUESA");
         FirstStepVM firstStep = getFirstStepVM(saborVM, TypeTamanho.PEQUENA);
 
@@ -185,11 +190,15 @@ class OrdersControllerTest {
         PedidoOutVM vm = controller.postOrderAdicionais(null, secondStepVM);
 
         assertNotNull(vm);
-        assertEquals(outVM.getValorTotal(), vm.getValorTotal());
+        assertEquals(BigDecimal.valueOf(20), vm.getValorTotal());
+        assertEquals(Integer.valueOf(20), vm.getTempoPreparo());
+        assertEquals("PORTUGUESA", vm.getResumo().getSabor());
+        assertEquals(TypeTamanho.PEQUENA, vm.getResumo().getTamanho());
+        assertEquals(BigDecimal.valueOf(20), vm.getResumo().getPreco());
     }
 
     @Test
-    void shouldFinalizeStep2WithAdicionaisExtraBacon() throws RecordNotFoundException, DataRequiredException {
+    void shouldFinalizeStep2WithAdicionaisExtraBacon() throws RecordNotFoundException, DataRequiredException, InvalidateDataException {
         SaborInVM saborVM = getSaborVM("PORTUGUESA");
         FirstStepVM firstStep = getFirstStepVM(saborVM, TypeTamanho.GRANDE);
 
@@ -207,11 +216,12 @@ class OrdersControllerTest {
         PedidoOutVM vm = controller.postOrderAdicionais(null, secondStepVM);
 
         assertNotNull(vm);
-        assertEquals(outVM.getValorTotal().add(BigDecimal.valueOf(3)), vm.getValorTotal());
+        assertEquals(BigDecimal.valueOf(43), vm.getValorTotal());
+        assertEquals(Integer.valueOf(30), vm.getTempoPreparo());
     }
 
     @Test
-    void shouldFinalizeStep2WithAdicionaisSemCebola() throws RecordNotFoundException, DataRequiredException {
+    void shouldFinalizeStep2WithAdicionaisSemCebola() throws RecordNotFoundException, DataRequiredException, InvalidateDataException {
         SaborInVM saborVM = getSaborVM("PORTUGUESA");
         FirstStepVM firstStep = getFirstStepVM(saborVM, TypeTamanho.GRANDE);
 
@@ -229,11 +239,12 @@ class OrdersControllerTest {
         PedidoOutVM vm = controller.postOrderAdicionais(null, secondStepVM);
 
         assertNotNull(vm);
-        assertEquals(outVM.getValorTotal(), vm.getValorTotal());
+        assertEquals(BigDecimal.valueOf(40), vm.getValorTotal());
+        assertEquals(Integer.valueOf(30), vm.getTempoPreparo());
     }
 
     @Test
-    void shouldFinalizeStep2WithAdicionaisBordaRecheada() throws RecordNotFoundException, DataRequiredException {
+    void shouldFinalizeStep2WithAdicionaisBordaRecheada() throws RecordNotFoundException, DataRequiredException, InvalidateDataException {
         SaborInVM saborVM = getSaborVM("PORTUGUESA");
         FirstStepVM firstStep = getFirstStepVM(saborVM, TypeTamanho.GRANDE);
 
@@ -251,11 +262,12 @@ class OrdersControllerTest {
         PedidoOutVM vm = controller.postOrderAdicionais(null, secondStepVM);
 
         assertNotNull(vm);
-        assertEquals(outVM.getValorTotal().add(BigDecimal.valueOf(5)), vm.getValorTotal());
+        assertEquals(BigDecimal.valueOf(45), vm.getValorTotal());
+        assertEquals(Integer.valueOf(35), vm.getTempoPreparo());
     }
 
     @Test
-    void shouldFinalizeStep2WithAdicionaisExtraBaconAndBordaRecheada() throws RecordNotFoundException, DataRequiredException {
+    void shouldFinalizeStep2WithAdicionaisExtraBaconAndBordaRecheada() throws RecordNotFoundException, DataRequiredException, InvalidateDataException {
         SaborInVM saborVM = getSaborVM("PORTUGUESA");
         FirstStepVM firstStep = getFirstStepVM(saborVM, TypeTamanho.GRANDE);
 
@@ -274,8 +286,8 @@ class OrdersControllerTest {
         PedidoOutVM vm = controller.postOrderAdicionais(null, secondStepVM);
 
         assertNotNull(vm);
-        assertEquals(outVM.getValorTotal().add(BigDecimal.valueOf(8)), vm.getValorTotal());
-        assertEquals(Integer.valueOf(outVM.getTempoTotal() + 5), vm.getTempoTotal());
+        assertEquals(BigDecimal.valueOf(48), vm.getValorTotal());
+        assertEquals(Integer.valueOf(35), vm.getTempoPreparo());
     }
 
     private FirstStepVM getFirstStepVM(SaborInVM saborVM, TypeTamanho grande) {
