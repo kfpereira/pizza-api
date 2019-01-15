@@ -1,4 +1,4 @@
-package com.fantin.pizza.domain;
+package com.fantin.pizza.domain.model;
 
 import com.fantin.pizza.domain.type.TypeTamanho;
 import lombok.*;
@@ -22,7 +22,6 @@ public class Tamanho {
     @SequenceGenerator(
             name = "SEQ_TAM_ID",
             allocationSize = 1,
-            initialValue = 1,
             sequenceName = "SEQ_TAM_ID"
     )
     private Long id;

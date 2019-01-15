@@ -1,14 +1,15 @@
 package com.fantin.pizza;
 
 import com.fantin.pizza.config.core.FunctionalTest;
+import com.fantin.pizza.domain.repositories.OrderRepository;
 import com.fantin.pizza.environments.EnvOrder;
-import com.fantin.pizza.repositories.OrderRepository;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 @ExtendWith(SpringExtension.class)
@@ -24,6 +25,8 @@ class PedidoTest {
     @Test
     void happyDay() {
         envOrder.init();
-        Assert.assertEquals(3, repository.findAll().size());
+        assertEquals(3, repository.findAll().size());
     }
+
+
 }

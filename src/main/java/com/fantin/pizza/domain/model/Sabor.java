@@ -1,4 +1,4 @@
-package com.fantin.pizza.domain;
+package com.fantin.pizza.domain.model;
 
 import lombok.*;
 
@@ -19,7 +19,6 @@ public class Sabor {
     @SequenceGenerator(
             name = "SEQ_SABOR_ID",
             allocationSize = 1,
-            initialValue = 1,
             sequenceName = "SEQ_SABOR_ID"
     )
     private Long id;

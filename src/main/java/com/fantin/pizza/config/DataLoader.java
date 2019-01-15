@@ -1,7 +1,11 @@
 package com.fantin.pizza.config;
 
-import com.fantin.pizza.repositories.SaborRepository;
-import com.fantin.pizza.repositories.TamanhoRepository;
+import com.fantin.pizza.config.inits.InitAdicionais;
+import com.fantin.pizza.config.inits.InitSabores;
+import com.fantin.pizza.config.inits.InitTamanhos;
+import com.fantin.pizza.domain.repositories.AdicionalRepository;
+import com.fantin.pizza.domain.repositories.SaborRepository;
+import com.fantin.pizza.domain.repositories.TamanhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -17,10 +21,16 @@ public class DataLoader implements ApplicationRunner {
     private InitTamanhos initTamanhos;
 
     @Autowired
+    private InitAdicionais initAdicionais;
+
+    @Autowired
     private SaborRepository saborRepository;
 
     @Autowired
     private TamanhoRepository tamanhoRepository;
+
+    @Autowired
+    private AdicionalRepository adicionalRepository;
 
     @Autowired
     private EnvironmentReader environmentReader;
@@ -32,6 +42,8 @@ public class DataLoader implements ApplicationRunner {
                 initSabores.init();
             if (tamanhoRepository.findAll().isEmpty())
                 initTamanhos.init();
+            if (adicionalRepository.findAll().isEmpty())
+                initAdicionais.init();
         }
     }
 }
