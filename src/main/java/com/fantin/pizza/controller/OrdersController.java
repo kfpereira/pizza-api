@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 import static com.fantin.pizza.config.errors.ErrorMessages.REQUIRED_SABOR;
 import static com.fantin.pizza.viewer.makers.MakePedido.toPedidoOutVM;
-import static com.fantin.pizza.viewer.makers.MakePedido.toPedidoOutVMFirstStep;
+import static com.fantin.pizza.viewer.makers.MakePedidoFirstStep.toPedidoOutVMFirstStep;
 
 @Api(tags = { "ordersController" })
 @RestController

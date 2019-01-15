@@ -65,8 +65,8 @@ public class PedidoService {
         return Pedido.builder()
                 .tamanho(tamanho)
                 .sabor(sabor)
-                .tempoTotalPreparo(tamanho.getTempoPreparo())
-                .valorTotal(tamanho.getValor().add(sabor.getValorAdicional()))
+                .tempoTotalPreparo(tamanho.getTempoPreparo() + (sabor.getTempoAdicional()))
+                .valorTotal(tamanho.getValor())
                 .build();
     }
 

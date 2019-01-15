@@ -5,22 +5,20 @@ import com.fantin.pizza.domain.repositories.SaborRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 @Service
 public class SaborService {
 
     @Autowired
     private SaborRepository repository;
 
-    public Sabor save(String descricao, BigDecimal valor) {
-        return repository.saveAndFlush(getSabor(descricao, valor));
+    public Sabor save(String descricao, Integer tempoAdicional) {
+        return repository.saveAndFlush(getSabor(descricao, tempoAdicional));
     }
 
-    private Sabor getSabor(String descricao, BigDecimal valorAdicional) {
+    private Sabor getSabor(String descricao, Integer tempoAdicional) {
         return Sabor.builder()
                 .descricao(descricao)
-                .valorAdicional(valorAdicional)
+                .tempoAdicional(tempoAdicional)
                 .build();
     }
 
