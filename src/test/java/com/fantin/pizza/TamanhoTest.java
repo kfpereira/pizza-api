@@ -1,10 +1,10 @@
 package com.fantin.pizza;
 
 import com.fantin.pizza.config.core.FunctionalTest;
-import com.fantin.pizza.domain.Tamanho;
+import com.fantin.pizza.domain.model.Tamanho;
+import com.fantin.pizza.domain.repositories.TamanhoRepository;
 import com.fantin.pizza.domain.type.TypeTamanho;
 import com.fantin.pizza.environments.EnvTamanho;
-import com.fantin.pizza.repositories.TamanhoRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;

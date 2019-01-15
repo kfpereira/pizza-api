@@ -1,18 +1,19 @@
 package com.fantin.pizza.viewer;
 
-import com.fantin.pizza.domain.type.TypeTamanho;
+import com.fantin.pizza.domain.type.TypePersonalizacao;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-public class FirstStepVM {
+public class SecondStepVM {
 
     @ApiModelProperty(required=true)
-    private TypeTamanho tamanho;
+    private Long idPedido;
 
-    @ApiModelProperty(required=true)
-    private SaborInVM sabor;
+    private List<TypePersonalizacao> adicionais;
 
 }

@@ -1,5 +1,6 @@
 package com.fantin.pizza.environments;
 
+import com.fantin.pizza.domain.model.Pedido;
 import com.fantin.pizza.domain.model.Sabor;
 import com.fantin.pizza.domain.model.Tamanho;
 import com.fantin.pizza.domain.repositories.SaborRepository;
@@ -9,10 +10,12 @@ import com.fantin.pizza.domain.type.TypeTamanho;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-@Component
-public class EnvOrder {
+import static com.fantin.pizza.domain.type.TypeTamanho.GRANDE;
 
-    private static final String CALABRESA = "CALABRESA";
+@Component
+public class EnvPedido {
+
+    private static final String PORTUGUESA = "PORTUGUESA";
 
     @Autowired
     private PedidoService service;
@@ -24,17 +27,11 @@ public class EnvOrder {
     private SaborRepository saborRepository;
 
     @Autowired
-    private EnvTamanho envTamanho;
+    private EnvOrder envOrder;
 
-    @Autowired
-    private EnvSabor envSabor;
-
-    public void init() {
+    public Pedido init() {
         initEnvironments();
-
-        service.save(getByTypeTamanho(TypeTamanho.PEQUENA), getByDescricao(CALABRESA));
-        service.save(getByTypeTamanho(TypeTamanho.MEDIA), getByDescricao(CALABRESA));
-        service.save(getByTypeTamanho(TypeTamanho.GRANDE), getByDescricao(CALABRESA));
+        return service.save(getByTypeTamanho(GRANDE), getByDescricao(PORTUGUESA));
     }
 
     private Sabor getByDescricao(String descricao) {
@@ -45,8 +42,8 @@ public class EnvOrder {
         return tamanhoRepository.findByTypeTamanho(tamanho);
     }
 
-    public void initEnvironments() {
-        envSabor.init();
-        envTamanho.init();
+    private void initEnvironments() {
+        envOrder.initEnvironments();
     }
+
 }

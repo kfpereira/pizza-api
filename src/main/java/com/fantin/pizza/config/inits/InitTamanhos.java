@@ -1,7 +1,7 @@
-package com.fantin.pizza.config;
+package com.fantin.pizza.config.inits;
 
+import com.fantin.pizza.domain.services.TamanhoService;
 import com.fantin.pizza.domain.type.TypeTamanho;
-import com.fantin.pizza.services.TamanhoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

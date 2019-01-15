@@ -1,8 +1,8 @@
-package com.fantin.pizza.services;
+package com.fantin.pizza.domain.services;
 
-import com.fantin.pizza.domain.Tamanho;
+import com.fantin.pizza.domain.model.Tamanho;
+import com.fantin.pizza.domain.repositories.TamanhoRepository;
 import com.fantin.pizza.domain.type.TypeTamanho;
-import com.fantin.pizza.repositories.TamanhoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

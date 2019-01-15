@@ -1,4 +1,4 @@
-package com.fantin.pizza.domain;
+package com.fantin.pizza.domain.model;
 
 import lombok.*;
 
@@ -19,7 +19,6 @@ public class Pedido {
     @SequenceGenerator(
             name = "SEQ_PEDIDO_ID",
             allocationSize = 1,
-            initialValue = 1,
             sequenceName = "SEQ_PEDIDO_ID"
     )
     private Long id;
@@ -32,6 +31,11 @@ public class Pedido {
     @JoinColumn(name = "ID_SABOR")
     private Sabor sabor;
 
+    @Setter
+    @Column(name = "TEMPO_TOTAL_PREPARO")
+    private Integer tempoTotalPreparo;
+
+    @Setter
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
 

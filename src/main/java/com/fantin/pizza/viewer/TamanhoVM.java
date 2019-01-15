@@ -1,18 +1,17 @@
 package com.fantin.pizza.viewer;
 
 import com.fantin.pizza.domain.type.TypeTamanho;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
-public class FirstStepVM {
+public class TamanhoVM {
 
-    @ApiModelProperty(required=true)
     private TypeTamanho tamanho;
-
-    @ApiModelProperty(required=true)
-    private SaborInVM sabor;
+    private Integer tempoPreparo;
+    private BigDecimal valor;
 
 }

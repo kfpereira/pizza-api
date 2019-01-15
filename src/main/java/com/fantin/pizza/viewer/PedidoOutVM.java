@@ -5,13 +5,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Getter
 @Setter
-public class FirstStepOutVM {
+public class PedidoOutVM {
 
+    private Long idPedido;
     private TypeTamanho tamanho;
     private String sabor;
+    private Integer tempoTotal;
     private BigDecimal valorTotal;
+    private List<PedidoAdicionalOutVM> adicionais;
 
 }

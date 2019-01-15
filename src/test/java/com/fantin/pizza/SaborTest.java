@@ -1,9 +1,9 @@
 package com.fantin.pizza;
 
 import com.fantin.pizza.config.core.FunctionalTest;
-import com.fantin.pizza.domain.Sabor;
+import com.fantin.pizza.domain.model.Sabor;
+import com.fantin.pizza.domain.repositories.SaborRepository;
 import com.fantin.pizza.environments.EnvSabor;
-import com.fantin.pizza.repositories.SaborRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
