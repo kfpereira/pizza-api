@@ -1,5 +1,6 @@
 package com.fantin.pizza.domain.model;
 
+import com.fantin.pizza.domain.type.Status;
 import lombok.*;
 
 import javax.persistence.*;
@@ -38,5 +39,10 @@ public class Pedido {
     @Setter
     @Column(name = "VALOR_TOTAL")
     private BigDecimal valorTotal;
+
+    @Setter
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 }

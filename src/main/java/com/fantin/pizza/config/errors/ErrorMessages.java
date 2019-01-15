@@ -9,7 +9,8 @@ public enum ErrorMessages {
     NOT_EXISTING_TASTE("Sabor Inexistente - Use o método GET para verificar os sabores válidos"),
     REQUIRED_PEDIDO("Pedido é Obrigatório"),
     PEDIDO_NOT_FOUND("Pedido não encontrado"),
-    ADICIONAL_NOT_FOUND("Tipo descricao não existente");
+    ADICIONAL_NOT_FOUND("Tipo descricao não existente"),
+    PEDIDO_CLOSED("Pedido fechado. Não tem como adicionar novos itens");
 
     private String message;
 

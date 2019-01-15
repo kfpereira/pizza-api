@@ -24,9 +24,10 @@ public class AdicionalService {
 
     public List<Adicional> find(List<TypePersonalizacao> adicionais) throws RecordNotFoundException {
         List<Adicional> result = new ArrayList<>();
-        for (TypePersonalizacao adicional : adicionais)
-            result.add(getAdicional(adicional));
-
+        if (adicionais != null) {
+            for (TypePersonalizacao adicional : adicionais)
+                result.add(getAdicional(adicional));
+        }
         return result;
     }
 

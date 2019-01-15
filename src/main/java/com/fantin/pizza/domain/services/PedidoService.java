@@ -1,10 +1,12 @@
 package com.fantin.pizza.domain.services;
 
 import com.fantin.pizza.config.errors.ErrorMessages;
+import com.fantin.pizza.config.exceptions.InvalidateDataException;
 import com.fantin.pizza.config.exceptions.RecordNotFoundException;
 import com.fantin.pizza.domain.model.*;
 import com.fantin.pizza.domain.repositories.OrderRepository;
 import com.fantin.pizza.domain.repositories.PersonalizacaoRepository;
+import com.fantin.pizza.domain.type.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,18 +27,24 @@ public class PedidoService {
         return repository.saveAndFlush(getOrder(tamanho, sabor));
     }
 
-    public void save(Pedido pedido, List<Adicional> adicionalList) {
+    public void save(Pedido pedido, List<Adicional> adicionalList) throws InvalidateDataException {
+        if (pedido.getStatus().equals(Status.CLOSED))
+            throw new InvalidateDataException(ErrorMessages.PEDIDO_CLOSED.getMessage());
+
         BigDecimal valor = pedido.getValorTotal();
         int tempo = pedido.getTempoTotalPreparo();
 
-        for (Adicional adicional : adicionalList) {
-            personalizacaoRepository.saveAndFlush(getPedidoAdicional(pedido, adicional));
-            valor = valor.add(adicional.getValorAdicional());
-            tempo += adicional.getTempoPreparo();
+        if (adicionalList != null) {
+            for (Adicional adicional : adicionalList) {
+                personalizacaoRepository.saveAndFlush(getPedidoAdicional(pedido, adicional));
+                valor = valor.add(adicional.getValorAdicional());
+                tempo += adicional.getTempoPreparo();
+            }
         }
 
         pedido.setValorTotal(valor);
         pedido.setTempoTotalPreparo(tempo);
+        pedido.setStatus(Status.CLOSED);
         repository.saveAndFlush(pedido);
     }
 
@@ -67,6 +75,7 @@ public class PedidoService {
                 .sabor(sabor)
                 .tempoTotalPreparo(tamanho.getTempoPreparo() + (sabor.getTempoAdicional()))
                 .valorTotal(tamanho.getValor())
+                .status(Status.STEP_ONE)
                 .build();
     }
 
